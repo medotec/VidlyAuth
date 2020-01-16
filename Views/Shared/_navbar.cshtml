@@ -1,0 +1,13 @@
+﻿<div class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+    <div class="container">
+        @Html.ActionLink("Vidly Movies", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+   
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Movies", "Index", "Movies", null, new { @class = "nav-link" })</li>
+            <li>@Html.ActionLink("Customers", "Index", "Customers", null, new { @class = "nav-link" })</li>
+        </ul>
+        @Html.Partial("_LoginPartial")
+    </div>
+</div>
+</div>

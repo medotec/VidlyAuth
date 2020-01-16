@@ -1,0 +1,40 @@
+﻿@model ICollection<VidlyAuth.Models.Movie>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+@if (Model == null)
+{
+<div class="alert alert-dismissible alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4 class="alert-heading">Sorry!</h4>
+    <p class="mb-0">No Movies to Display Yet, Stay tuned for the upcoming movies.</p>
+</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Movie</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Release Date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        @foreach (var movie in Model)
+        {
+        <tr>
+            <td>@movie.Name</td>
+            <td>@movie.Genre</td>
+            <td>@movie.ReleaseDate</td>
+        </tr>
+        }
+        </tbody>
+    </table>
+}

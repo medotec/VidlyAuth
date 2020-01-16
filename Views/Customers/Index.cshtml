@@ -1,0 +1,41 @@
+﻿@model ICollection<VidlyAuth.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@if (Model == null)
+{
+<div class="alert alert-dismissible alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4 class="alert-heading">Sorry!</h4>
+    <p class="mb-0">No Customers to Display Yet, More on the way.</p>
+</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Customer</th>
+            <th scope="col">Membership Type</th>
+            <th scope="col">Newsletter Subscription</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        @foreach (var customer in Model)
+        {
+        <tr>
+            <td>@customer.Name</td>
+            <td>@customer.MembershipType</td>
+            <td>@customer.IsSubscribedToNewsLetter</td>
+        </tr>
+        }
+
+        </tbody>
+    </table>
+}
