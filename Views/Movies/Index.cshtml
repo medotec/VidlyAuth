@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <h2>Movies</h2>
@@ -16,11 +17,12 @@
 }
 else
 {
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover">
         <thead>
         <tr>
             <th scope="col">Movie</th>
             <th scope="col">Genre</th>
+            <th scope="col">Stock</th>
             <th scope="col">Release Date</th>
         </tr>
         </thead>
@@ -29,12 +31,17 @@ else
 
         @foreach (var movie in Model)
         {
-        <tr>
-            <td>@movie.Name</td>
-            <td>@movie.Genre</td>
-            <td>@movie.ReleaseDate</td>
-        </tr>
+            <tr>
+                <td>@Html.ActionLink(@movie.Name, "Details", new { id = movie.Id })</td>
+                <td>@movie.Genre.Name</td>
+                <td>@movie.Stock</td>
+                <td>@movie.ReleaseDate.Date.ToString("d")</td>
+            </tr>
         }
         </tbody>
     </table>
+    <br/>
+
+    @Html.ActionLink("New Movie", "MovieForm",new { id = 0 }, new { @class = "btn btn-dark"} )
+    
 }

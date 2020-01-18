@@ -26,3 +26,10 @@ textarea {
 .navbar-collapse {
     justify-content: flex-end;
 }
+
+.input-validation-error {
+    border: red solid 2px
+}
+.field-validation-error {
+    color: red
+}

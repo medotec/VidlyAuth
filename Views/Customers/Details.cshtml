@@ -1,0 +1,19 @@
+﻿@model VidlyAuth.Models.Customer
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<ul>
+    <li>Birthdate: @Model.BirthDate.ToString("d")</li>
+    <li>Membership Type: @Model.MembershipType.Name</li>
+    @if (Model.IsSubscribedToNewsLetter)
+    {
+        <li>Subscribed To Newsletter</li>
+    }
+</ul>
+<br/>
+@Html.ActionLink("Edit", "CustomerForm", new { id = Model.Id }, new { @class="btn btn-secondary"})
+

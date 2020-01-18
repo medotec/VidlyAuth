@@ -29,13 +29,24 @@ else
 
         @foreach (var customer in Model)
         {
-        <tr>
-            <td>@customer.Name</td>
-            <td>@customer.MembershipType</td>
-            <td>@customer.IsSubscribedToNewsLetter</td>
-        </tr>
+            <tr>
+                <td>@Html.ActionLink(customer.Name, "Details", new { id = customer.Id })</td>
+                <td>@customer.MembershipType.Name</td>
+                <td>@if (customer.IsSubscribedToNewsLetter)
+                    {
+                        <text> Subscribed </text>
+                    }
+                    else
+                    {
+                        <text> Not Subscribed </text>
+                    } 
+                </td>
+                        
+            </tr>
         }
 
         </tbody>
     </table>
+    <br/>
+    @Html.ActionLink("New Customer", "CustomerForm", new { id = 0 }, new { @class = "btn btn-primary" })
 }
