@@ -16,7 +16,7 @@ namespace VidlyAuth.Controllers
 
         public MoviesController()
         {
-            _dbContext = new ApplicationDbContext();
+            _dbContext = ApplicationDbContext.Create();
         }
         // GET: Movie
         public ActionResult Index()
@@ -35,20 +35,14 @@ namespace VidlyAuth.Controllers
         {
             if (id == 0)
             {
-                MovieFormViewModel viewModel = new MovieFormViewModel
-                {
-                    Genres = _dbContext.Genres.ToHashSet(),
-                    Movie = new Movie()
-                };
+                MovieFormViewModel viewModel = new MovieFormViewModel(_dbContext.Genres.ToHashSet());
+                
                 return View(viewModel);
             }
             else if(id > 0)
             {
-                MovieFormViewModel viewModel = new MovieFormViewModel
-                {
-                    Genres = _dbContext.Genres.ToHashSet(),
-                    Movie = _dbContext.Movies.SingleOrDefault(m => m.Id == id)
-                };
+                MovieFormViewModel viewModel = new MovieFormViewModel(_dbContext.Movies.Single(m => m.Id == id),
+                    _dbContext.Genres.ToHashSet());
                 return View(viewModel);
             }
             else
@@ -78,11 +72,8 @@ namespace VidlyAuth.Controllers
             }
             else
             {
-                MovieFormViewModel viewModel = new MovieFormViewModel
-                {
-                    Genres = _dbContext.Genres.ToHashSet(),
-                    Movie = movie
-                };
+                MovieFormViewModel viewModel = new MovieFormViewModel(movie, _dbContext.Genres.ToHashSet());
+                
                 return View("MovieForm", viewModel);
             }
         }

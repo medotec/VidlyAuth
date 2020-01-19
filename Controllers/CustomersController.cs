@@ -15,7 +15,7 @@ namespace VidlyAuth.Controllers
 
         public CustomersController()
         {
-            _dbContext = new ApplicationDbContext();
+            _dbContext = ApplicationDbContext.Create();
         }
         // GET: Customers
         public ActionResult Index()
@@ -26,34 +26,29 @@ namespace VidlyAuth.Controllers
 
         public ActionResult Details(int id)
         {
-            Customer customer = _dbContext.Customers.Include(c => c.MembershipType).Single(c => c.Id == id);
+            Customer customer = _dbContext.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
             return View(customer);
         }
 
-        public ActionResult CustomerForm(int id)
+        public ActionResult CustomerForm(int? id)
         {
-            if (id == 0)
-            {
-                CustomerFormViewModel viewModel = new CustomerFormViewModel
-                {
-                    MembershipTypes = _dbContext.MembershipTypes.ToHashSet(),
-                    Customer = new Customer()
-                };
-                return View(viewModel);
-            }
-            else if (id > 0)
-            {
-                CustomerFormViewModel viewModel = new CustomerFormViewModel
-                {
-                    MembershipTypes = _dbContext.MembershipTypes.ToHashSet(),
-                    Customer = _dbContext.Customers.Single(c => c.Id == id)
-                };
-                return View(viewModel);
-            }
-            else
+            if (id == null)
             {
                 return RedirectToAction("Index", "Customers");
             }
+            if (id == 0)
+            {
+                CustomerFormViewModel viewModel = new CustomerFormViewModel(_dbContext.MembershipTypes.ToHashSet());
+                return View(viewModel);
+            }
+            if (id > 0)
+            {
+                CustomerFormViewModel viewModel =
+                    new CustomerFormViewModel(_dbContext.Customers.Single(c => c.Id == id),
+                        _dbContext.MembershipTypes.ToHashSet());
+                return View(viewModel);
+            }
+            return RedirectToAction("Index", "Customers");
         }
 
         [HttpPost]
@@ -75,11 +70,8 @@ namespace VidlyAuth.Controllers
             }
             else
             {
-                CustomerFormViewModel viewModel = new CustomerFormViewModel
-                {
-                    MembershipTypes = _dbContext.MembershipTypes.ToHashSet(),
-                    Customer = customer
-                };
+                CustomerFormViewModel viewModel =
+                    new CustomerFormViewModel(customer, _dbContext.MembershipTypes.ToHashSet());
                 return View("CustomerForm", viewModel);
             }
         }
@@ -87,8 +79,11 @@ namespace VidlyAuth.Controllers
         public ActionResult DeleteCustomer(int id)
         {
             Customer customer = _dbContext.Customers.Find(id);
-            _dbContext.Customers.Remove(customer);
-            _dbContext.SaveChanges();
+            if (customer != null)
+            {
+                _dbContext.Customers.Remove(customer);
+                _dbContext.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
     }
