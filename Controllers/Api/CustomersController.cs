@@ -26,16 +26,12 @@ namespace VidlyAuth.Controllers.Api
         public IHttpActionResult GetCustomers()
         {
             IEnumerable<Customer> customers = _dbContext.Customers.Include(c => c.MembershipType).ToHashSet();
-            IEnumerable<CustomerDto> customerDtos = new HashSet<CustomerDto>();
-            foreach (Customer customer in customers)
-            {
-                CustomerDto customerDto = customer;
-                customerDtos.Append(customerDto);
-            }
+            
+            IEnumerable<CustomerDto> customerDtos = customers.Select<Customer, CustomerDto>(c => c);
             return Ok(customerDtos);
         }
 
-        //GET: /api/customers/{id}
+        //GET: /api/customers/{id}  
         public IHttpActionResult GetCustomer(int id)
         {
             Customer customer = _dbContext.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
@@ -63,7 +59,7 @@ namespace VidlyAuth.Controllers.Api
             _dbContext.SaveChanges();
             customerDto.Id = customer.Id;
 
-            return Created(Request.RequestUri + "/" + customer.Id, customerDto);
+            return Created(Request.RequestUri +  customer.Id.ToString(), customerDto);
         }
 
         //PUT: /api/customers/{id}
@@ -81,12 +77,12 @@ namespace VidlyAuth.Controllers.Api
                 return NotFound();
             }
 
-            customerInDb = customerDto;
+            customerDto.ToCustomer(customerInDb);
 
             _dbContext.Entry(customerInDb).State = EntityState.Modified;
             _dbContext.SaveChanges();
 
-            customerDto = customerInDb;
+            customerInDb.ToCustomerDto(customerDto);
 
             return Ok(customerDto);
         }

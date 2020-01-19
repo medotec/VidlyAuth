@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using Microsoft.Ajax.Utilities;
 using VidlyAuth.Models;
 
@@ -37,15 +38,24 @@ namespace VidlyAuth.Dtos
 
         public static implicit operator Customer(CustomerDto customerDto)
         {
-            return new Customer
-            {
-                Id = customerDto.Id,
-                Name = customerDto.Name,
-                BirthDate = customerDto.BirthDate,
-                MembershipTypeId = customerDto.MembershipTypeId,
-                MembershipType = customerDto.MembershipType,
-                IsSubscribedToNewsLetter = customerDto.IsSubscribedToNewsLetter
-            };
+                return new Customer
+                {
+                    Name = customerDto.Name,
+                    BirthDate = customerDto.BirthDate,
+                    MembershipTypeId = customerDto.MembershipTypeId,
+                    IsSubscribedToNewsLetter = customerDto.IsSubscribedToNewsLetter
+                };
         }
+        //public static implicit operator Customer(CustomerDto customerDto, Customer customer)
+        //{
+        //    if (customerDto.Id == customer.Id)
+        //    {
+        //        customer.Name = customerDto.Name;
+        //        customer.BirthDate = customerDto.BirthDate;
+        //        customer.MembershipTypeId = customerDto.MembershipTypeId;
+        //        customer.IsSubscribedToNewsLetter = customerDto.IsSubscribedToNewsLetter;
+        //    }
+        //}
+
     }
 }

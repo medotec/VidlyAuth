@@ -24,12 +24,7 @@ namespace VidlyAuth.Controllers.Api
         public IHttpActionResult GetMovies()
         {
             IEnumerable<Movie> movies = _dbContext.Movies.Include(m => m.Genre).ToHashSet();
-            IEnumerable<MovieDto> movieDtos = new List<MovieDto>();
-            foreach (Movie movie in movies)
-            {
-                MovieDto movieDto = movie;
-                movieDtos.Append(movieDto);
-            }
+            IEnumerable<MovieDto> movieDtos = movies.Select<Movie, MovieDto>(c => c);
             return Ok(movieDtos);
         }
 
@@ -59,7 +54,7 @@ namespace VidlyAuth.Controllers.Api
             _dbContext.Movies.Add(movie);
             _dbContext.SaveChanges();
             movieDto.Id = movie.Id;
-            return Created(Request.RequestUri + "/" + movieDto.Id, movieDto);
+            return Created(Request.RequestUri +movieDto.Id.ToString(), movieDto);
         }
 
         //PUT: /api/movies/{id}
@@ -76,12 +71,12 @@ namespace VidlyAuth.Controllers.Api
             {
                 return NotFound();
             }
-            movieInDb = movieDto;
+            movieDto.ToMovie(movieInDb);
 
             _dbContext.Entry(movieInDb).State = EntityState.Modified;
             _dbContext.SaveChanges();
             
-            movieDto = movieInDb;
+            movieInDb.ToMovieDto(movieDto);
             
             return Ok(movieDto);
         }

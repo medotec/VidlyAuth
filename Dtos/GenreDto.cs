@@ -13,6 +13,10 @@ namespace VidlyAuth.Dtos
 
         public static implicit operator GenreDto(Genre genre)
         {
+            if (genre == null)
+            {
+                return null;
+            }
             return new GenreDto
             {
                 Id = genre.Id,
@@ -21,6 +25,10 @@ namespace VidlyAuth.Dtos
         }
         public static implicit operator Genre(GenreDto genreDto)
         {
+            if (genreDto == null)
+            {
+                return null;
+            }
             return new Genre
             {
                 Id = genreDto.Id,
