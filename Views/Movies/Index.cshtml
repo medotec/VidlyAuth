@@ -30,10 +30,12 @@ else
         <tbody>
 
 
-        @*@foreach (var movie in Model)
+        @foreach (var movie in Model)
         {
             <tr>
-                <td>@Html.ActionLink(@movie.Name, "Details", new { id = movie.Id })</td>
+                <td>
+                    @Html.ActionLink(@movie.Name, "MovieForm", new {id = movie.Id})
+                </td>
                 <td>@movie.Genre.Name</td>
                 <td>@movie.Stock</td>
                 <td>@movie.ReleaseDate.Date.ToString("d")</td>
@@ -41,7 +43,7 @@ else
                     <button data-movie-id="@movie.Id" class="btn btn-link js-delete">Delete</button>
                 </td>
             </tr>
-        }*@
+        }
         </tbody>
     </table>
     <br/>
@@ -53,35 +55,35 @@ else
 {
     <script>
         $(document).ready(function () {
-            var table = $("#movies").DataTable({
-                ajax: {
-                    url: "/api/movies",
-                    dataSrc: ""
-                },
-                columns: [
-                    {
-                        data: "name",
-                        render: function(data, type, movie) {
-                            return "<a href='/movies/Details/" + movie.id + "'>" + movie.name + "</a>";
-                        }
-                    },
-                    {
-                        data: "genre.name",
-                    },
-                    {
-                        data: "stock"
-                    },
-                    {
-                        data: "releaseDate"
-                    },
-                    {
-                        data: "id",
-                        render: function(data) {
-                            return "<button data-movie-id=" + data + " class='btn btn-link js-delete'>Delete</button>";
-                        }
-                    }
-                    ]
-            });
+        //    var table = $("#movies").DataTable({
+        //        ajax: {
+        //            url: "/api/movies",
+        //            dataSrc: ""
+        //        },
+        //        columns: [
+        //            {
+        //                data: "name",
+        //                render: function(data, type, movie) {
+        //                    return "<a href='/movies/Details/" + movie.id + "'>" + movie.name + "</a>";
+        //                }
+        //            },
+        //            {
+        //                data: "genre.name",
+        //            },
+        //            {
+        //                data: "stock"
+        //            },
+        //            {
+        //                data: "releaseDate"
+        //            },
+        //            {
+        //                data: "id",
+        //                render: function(data) {
+        //                    return "<button data-movie-id=" + data + " class='btn btn-link js-delete'>Delete</button>";
+        //                }
+        //            }
+        //            ]
+        //    });
 
 
             $("#movies").on("click",

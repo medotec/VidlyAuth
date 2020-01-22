@@ -33,3 +33,6 @@ textarea {
 .field-validation-error {
     color: red
 }
+.navbar-items {
+    justify-content: left;
+}

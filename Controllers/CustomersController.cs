@@ -18,10 +18,18 @@ namespace VidlyAuth.Controllers
             _dbContext = ApplicationDbContext.Create();
         }
         // GET: Customers
+        [Authorize]
         public ActionResult Index()
         {
             ICollection<Customer> customers = _dbContext.Customers.Include(c => c.MembershipType).ToList();
-            return View(customers);
+            if (User.IsInRole(RoleName.CanManageMovies))
+            {
+                return View("Index",customers);
+            }
+            else
+            {
+                return View("ReadOnlyIndex", customers);
+            }
         }
 
         public ActionResult Details(int id)
@@ -30,6 +38,7 @@ namespace VidlyAuth.Controllers
             return View(customer);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult CustomerForm(int? id)
         {
             if (id == null)
@@ -53,6 +62,7 @@ namespace VidlyAuth.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult SaveCustomer(Customer customer)
         {
             if (ModelState.IsValid)
@@ -76,6 +86,7 @@ namespace VidlyAuth.Controllers
             }
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult DeleteCustomer(int id)
         {
             Customer customer = _dbContext.Customers.Find(id);

@@ -22,7 +22,14 @@ namespace VidlyAuth.Controllers
         public ActionResult Index()
         {
             ICollection<Movie> movies = _dbContext.Movies.Include(m => m.Genre).ToList();
-            return View(movies);
+            if (User.IsInRole(RoleName.CanManageMovies))
+            {
+                return View("Index", movies);
+            }
+            else
+            {
+                return View("ReadOnlyIndex", movies);
+            }
         }
 
         public ActionResult Details(int id)
@@ -31,6 +38,7 @@ namespace VidlyAuth.Controllers
             return View(movie);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult MovieForm(int id)
         {
             if (id == 0)
@@ -53,6 +61,7 @@ namespace VidlyAuth.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult SaveMovie(Movie movie)
         {
             if (ModelState.IsValid)

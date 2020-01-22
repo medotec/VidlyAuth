@@ -50,13 +50,13 @@ namespace VidlyAuth
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "0H9zNmPesVu3PRlc4WIWrHUDN",
+               consumerSecret: "CezzZpQWOynxHE3my71TqLUN6E1LMAICrjPUuAcKpRpTvb3vkf");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "844375046001260",
+               appSecret: "35ca4864244cbae484064804f52a40f9");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

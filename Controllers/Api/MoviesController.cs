@@ -54,7 +54,7 @@ namespace VidlyAuth.Controllers.Api
             _dbContext.Movies.Add(movie);
             _dbContext.SaveChanges();
             movieDto.Id = movie.Id;
-            return Created(Request.RequestUri +movieDto.Id.ToString(), movieDto);
+            return Created(Request.RequestUri + movieDto.Id.ToString(), movieDto);
         }
 
         //PUT: /api/movies/{id}

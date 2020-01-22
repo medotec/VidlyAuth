@@ -8,6 +8,16 @@ namespace VidlyAuth.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Driving License")]
+        [StringLength(255)]
+        public string DrivingLicense { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number")]
+        [StringLength(10)]
+        public string PhoneNumber { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -79,6 +89,16 @@ namespace VidlyAuth.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        [Display(Name = "Driving License")]
+        public string DrivingLicense { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

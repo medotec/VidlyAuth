@@ -201,6 +201,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\202001160136039_InitialModel.cs" />
     <Compile Include="Migrations\202001160136039_InitialModel.designer.cs">
       <DependentUpon>202001160136039_InitialModel.cs</DependentUpon>
@@ -213,14 +214,28 @@
     <Compile Include="Migrations\202001160221510_PopulateGenres.designer.cs">
       <DependentUpon>202001160221510_PopulateGenres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001200306073_seedUsers.cs" />
+    <Compile Include="Migrations\202001200306073_seedUsers.designer.cs">
+      <DependentUpon>202001200306073_seedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001200333337_AddDrivingLicenseToApplicatinUser.cs" />
+    <Compile Include="Migrations\202001200333337_AddDrivingLicenseToApplicatinUser.designer.cs">
+      <DependentUpon>202001200333337_AddDrivingLicenseToApplicatinUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001200407210_AddingPhoneNumber.cs" />
+    <Compile Include="Migrations\202001200407210_AddingPhoneNumber.designer.cs">
+      <DependentUpon>202001200407210_AddingPhoneNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
@@ -620,6 +635,8 @@
     <Content Include="Views\Movies\MovieForm.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Movies\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Customers\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -644,6 +661,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001160221510_PopulateGenres.resx">
       <DependentUpon>202001160221510_PopulateGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001200306073_seedUsers.resx">
+      <DependentUpon>202001200306073_seedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001200333337_AddDrivingLicenseToApplicatinUser.resx">
+      <DependentUpon>202001200333337_AddDrivingLicenseToApplicatinUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001200407210_AddingPhoneNumber.resx">
+      <DependentUpon>202001200407210_AddingPhoneNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
